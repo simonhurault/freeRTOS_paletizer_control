@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="EXPORT_DIALOG">
+		<item value="0x20001fd0" key="Start"/>
+		<item value="0x200046e0" key="End"/>
+		<item value="D:\cours\mea4\ram" key="File"/>
+		<item value="PlainTextExporter" key="SELECTED_EXPORTER"/>
+		<item value="0x20001fd0" key="Initial address"/>
+	</section>
+</section>

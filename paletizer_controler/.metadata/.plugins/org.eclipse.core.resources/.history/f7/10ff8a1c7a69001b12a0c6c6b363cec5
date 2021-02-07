@@ -78,7 +78,7 @@ void update_actuators(uint32_t cmd, command_message_t buffer);
 int main()
 {
 	// Configure System Clock
-	// SystemClock_Config();
+	SystemClock_Config();
 
 	// Initialize LED pin
 	BSP_LED_Init();

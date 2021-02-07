@@ -142,9 +142,11 @@ void BSP_Console_Init()
 	RCC->CFGR3 &= ~RCC_CFGR3_USART2SW_Msk;
 
 	// Baud Rate = 115200
+	// With OVER8=0 and Fck=48MHz, USARTDIV =   48E6/115200 = 416.6666
+	// BRR = 417 -> Actual BaudRate = 115107.9137 -> 0.08% error
 	//
 	// With OVER8=1 and Fck=8MHz, USARTDIV = 2*8E6/115200 = 138.9
-	// BRR = 139 -> Actual BaudRate = 115246.0984 -> 0.08% error (better choice)
+	// BRR = 833 -> Actual BaudRate = 115246.0984 -> 0.08% error (better choice)
 
 	USART2->CR1 |= USART_CR1_OVER8;
 	USART2->BRR = 139;
