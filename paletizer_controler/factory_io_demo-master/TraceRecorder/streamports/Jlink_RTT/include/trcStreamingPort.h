@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Trace Recorder Library for Tracealyzer v4.3.11
+ * Trace Recorder Library for Tracealyzer v4.4.1
  * Percepio AB, www.percepio.com
  *
  * trcStreamingPort.h
@@ -71,7 +71,7 @@ extern "C" {
  * But integrated J-Link OB interfaces are slower and needs about 5-10 KB, 
  * depending on the amount of data produced.
  ******************************************************************************/
-#define TRC_CFG_RTT_BUFFER_SIZE_UP 6000 //5000 //6500
+#define TRC_CFG_RTT_BUFFER_SIZE_UP 5000
 
 /*******************************************************************************
  * Configuration Macro: TRC_CFG_RTT_BUFFER_SIZE_DOWN
@@ -131,8 +131,8 @@ extern "C" {
  ******************************************************************************/
 #define TRC_CFG_RTT_MODE SEGGER_RTT_MODE_NO_BLOCK_SKIP
 
-#include "../../../../TraceRecorder/streamports/Jlink_RTT/include/SEGGER_RTT_Conf.h"
-#include "../../../../TraceRecorder/streamports/Jlink_RTT/include/SEGGER_RTT.h"
+#include "SEGGER_RTT_Conf.h"
+#include "SEGGER_RTT.h"
 
 #if (TRC_CFG_RTT_UP_BUFFER_INDEX >= SEGGER_RTT_MAX_NUM_UP_BUFFERS)
 #error "TRC_CFG_RTT_UP_BUFFER_INDEX must be smaller than SEGGER_RTT_MAX_NUM_UP_BUFFERS"

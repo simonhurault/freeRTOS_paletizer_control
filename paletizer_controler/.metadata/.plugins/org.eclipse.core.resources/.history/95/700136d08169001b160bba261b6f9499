@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Trace Recorder Library for Tracealyzer v4.3.11
+ * Trace Recorder Library for Tracealyzer v4.4.1
  * Percepio AB, www.percepio.com
  *
  * trcConfig.h
@@ -53,6 +53,10 @@ extern "C" {
 #endif
 
 #include "trcPortDefines.h"
+/******************************************************************************
+ * Include of processor header file
+ *****************************************************************************/
+#include "stm32f0xx.h"
 
 /******************************************************************************
  * Include of processor header file
@@ -61,7 +65,7 @@ extern "C" {
  * required at least for the ARM Cortex-M port, that uses the ARM CMSIS API.
  * Try that in case of build problems. Otherwise, remove the #error line below.
  *****************************************************************************/
-#include "stm32f0xx.h"
+#error "Trace Recorder: Please include your processor's header file here and remove this line."
 
 /*******************************************************************************
  * Configuration Macro: TRC_CFG_HARDWARE_PORT
@@ -97,7 +101,7 @@ extern "C" {
  * TRC_RECORDER_MODE_SNAPSHOT
  * TRC_RECORDER_MODE_STREAMING
  ******************************************************************************/
-#define TRC_CFG_RECORDER_MODE TRC_RECORDER_MODE_SNAPSHOT
+#define TRC_CFG_RECORDER_MODE TRC_RECORDER_MODE_STREAMING
 
 /******************************************************************************
  * TRC_CFG_FREERTOS_VERSION
@@ -105,29 +109,38 @@ extern "C" {
  * Specify what version of FreeRTOS that is used (don't change unless using the
  * trace recorder library with an older version of FreeRTOS).
  *
- * TRC_FREERTOS_VERSION_7_3						If using FreeRTOS v7.3.x
- * TRC_FREERTOS_VERSION_7_4						If using FreeRTOS v7.4.x
- * TRC_FREERTOS_VERSION_7_5_OR_7_6				If using FreeRTOS v7.5.0 - v7.6.0
- * TRC_FREERTOS_VERSION_8_X						If using FreeRTOS v8.X.X
- * TRC_FREERTOS_VERSION_9_0_0					If using FreeRTOS v9.0.0
- * TRC_FREERTOS_VERSION_9_0_1					If using FreeRTOS v9.0.1
- * TRC_FREERTOS_VERSION_9_0_2					If using FreeRTOS v9.0.2
- * TRC_FREERTOS_VERSION_10_0_0					If using FreeRTOS v10.0.0 or later
+ * TRC_FREERTOS_VERSION_7_3_X				If using FreeRTOS v7.3.X
+ * TRC_FREERTOS_VERSION_7_4_X				If using FreeRTOS v7.4.X 
+ * TRC_FREERTOS_VERSION_7_5_X				If using FreeRTOS v7.5.X
+ * TRC_FREERTOS_VERSION_7_6_X				If using FreeRTOS v7.6.X
+ * TRC_FREERTOS_VERSION_8_X_X				If using FreeRTOS v8.X.X
+ * TRC_FREERTOS_VERSION_9_0_0				If using FreeRTOS v9.0.0
+ * TRC_FREERTOS_VERSION_9_0_1				If using FreeRTOS v9.0.1
+ * TRC_FREERTOS_VERSION_9_0_2				If using FreeRTOS v9.0.2
+ * TRC_FREERTOS_VERSION_10_0_0				If using FreeRTOS v10.0.0
+ * TRC_FREERTOS_VERSION_10_0_1				If using FreeRTOS v10.0.1
+ * TRC_FREERTOS_VERSION_10_1_0				If using FreeRTOS v10.1.0
+ * TRC_FREERTOS_VERSION_10_1_1				If using FreeRTOS v10.1.1
+ * TRC_FREERTOS_VERSION_10_2_0				If using FreeRTOS v10.2.0
+ * TRC_FREERTOS_VERSION_10_2_1				If using FreeRTOS v10.2.1
+ * TRC_FREERTOS_VERSION_10_3_0				If using FreeRTOS v10.3.0
+ * TRC_FREERTOS_VERSION_10_3_1				If using FreeRTOS v10.3.1
+ * TRC_FREERTOS_VERSION_10_4_0				If using FreeRTOS v10.4.0
+ * TRC_FREERTOS_VERSION_10_4_1				If using FreeRTOS v10.4.1 or later
  *****************************************************************************/
-#define TRC_CFG_FREERTOS_VERSION TRC_FREERTOS_VERSION_10_2_1
+#define TRC_CFG_FREERTOS_VERSION FREERTOS_VERSION_NOT_SET
 
-/*****************************************************************************
-* TRC_CFG_INCLUDE_OSTICK_EVENTS
-*
-* Macro which should be defined as either zero (0) or one (1).
-*
-* If this is one (1), events will be generated whenever the OS clock is
-* increased. If zero (0), OS tick events are not generated, which allows for
-* recording longer traces in the same amount of RAM.
-*
-* Default value is 1.
-*****************************************************************************/
-#define TRC_CFG_INCLUDE_OSTICK_EVENTS 0    // Disable the recording of OS tick events
+/*******************************************************************************
+ * TRC_CFG_SCHEDULING_ONLY
+ *
+ * Macro which should be defined as an integer value.
+ *
+ * If this setting is enabled (= 1), only scheduling events are recorded.
+ * If disabled (= 0), all events are recorded (unless filtered in other ways).
+ *
+ * Default value is 0 (= include additional events).
+ ******************************************************************************/
+#define TRC_CFG_SCHEDULING_ONLY 0
 
  /******************************************************************************
  * TRC_CFG_INCLUDE_MEMMANG_EVENTS

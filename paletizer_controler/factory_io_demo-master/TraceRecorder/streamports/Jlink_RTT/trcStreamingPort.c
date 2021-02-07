@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Trace Recorder Library for Tracealyzer v4.3.11
+ * Trace Recorder Library for Tracealyzer v4.4.1
  * Percepio AB, www.percepio.com
  *
  * trcStreamingPort.c
@@ -48,7 +48,7 @@
  * www.percepio.com
  ******************************************************************************/
  
-#include "../../../TraceRecorder/include/trcRecorder.h"
+#include "trcRecorder.h"
 
 #if (TRC_USE_TRACEALYZER_RECORDER == 1)
 #if (TRC_CFG_RECORDER_MODE == TRC_RECORDER_MODE_STREAMING)

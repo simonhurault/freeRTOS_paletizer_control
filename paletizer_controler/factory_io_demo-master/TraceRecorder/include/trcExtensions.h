@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Trace Recorder Library for Tracealyzer v4.3.11
+ * Trace Recorder Library for Tracealyzer v4.4.1
  * Percepio AB, www.percepio.com
  *
  * trcExtensions.h
@@ -170,7 +170,7 @@
 #ifndef TRCEXTENSIONS_H_
 #define TRCEXTENSIONS_H_
 
-#include "../../TraceRecorder/include/trcRecorder.h"
+#include "trcRecorder.h"
 
 /******************************************************************************
  * TRC_CFG_EXTENSION_COUNT
@@ -268,14 +268,16 @@ extern PSFExtensionInfoType PSFExtensionInfo;
 #if (TRC_CFG_EXTENSION_COUNT >= 1)
 	#ifdef TRC_EXT1_HEADER
 		#define TRC_EXT_NUMBER 1
-		#include"../../TraceRecorder/include/aws_secure_sockets.tzext.h"		#undef TRC_EXT_NUMBER
+		#include TRC_EXT1_HEADER
+		#undef TRC_EXT_NUMBER
 	#endif
 #endif
 
 #if (TRC_CFG_EXTENSION_COUNT >= 2)
 	#ifdef TRC_EXT2_HEADER
 		#define TRC_EXT_NUMBER 2
-		#include"../../TraceRecorder/include/aws_wifi.tzext.h"		#undef TRC_EXT_NUMBER
+		#include TRC_EXT2_HEADER
+		#undef TRC_EXT_NUMBER
 	#endif
 #endif
 

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Trace Recorder Library for Tracealyzer v4.3.11
+ * Trace Recorder Library for Tracealyzer v4.4.1
  * Percepio AB, www.percepio.com
  *
  * trcHardwarePort.h
@@ -45,7 +45,7 @@
 #ifndef TRC_HARDWARE_PORT_H
 #define TRC_HARDWARE_PORT_H
 
-#include "../../TraceRecorder/include/trcPortDefines.h"
+#include "trcPortDefines.h"
 
 
 #if (TRC_CFG_HARDWARE_PORT == TRC_HARDWARE_PORT_NOT_SET)

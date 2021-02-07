@@ -57,7 +57,7 @@ Revision: $Rev: 4079 $
 #ifndef SEGGER_RTT_H
 #define SEGGER_RTT_H
 
-#include "../../../../TraceRecorder/streamports/Jlink_RTT/include/SEGGER_RTT_Conf.h"
+#include "SEGGER_RTT_Conf.h"
 
 /*********************************************************************
 *

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Trace Recorder Library for Tracealyzer v4.3.11
+ * Trace Recorder Library for Tracealyzer v4.4.1
  * Percepio AB, www.percepio.com
  *
  * trcRecorder.h
@@ -56,7 +56,7 @@ extern "C" {
 #define TRC_ACKNOWLEDGED (0xABC99123)
 
 #include "trcConfig.h"
-#include "../../TraceRecorder/include/trcPortDefines.h"
+#include "trcPortDefines.h"
 
 #if (TRC_CFG_RECORDER_MODE == TRC_RECORDER_MODE_SNAPSHOT)
 
@@ -70,8 +70,8 @@ typedef uint16_t traceHandle;
 typedef uint8_t traceHandle;
 #endif /* (TRC_CFG_USE_16BIT_OBJECT_HANDLES == 1) */
 	
-#include "../../TraceRecorder/include/trcHardwarePort.h"
-#include "../../TraceRecorder/include/trcKernelPort.h"
+#include "trcHardwarePort.h"
+#include "trcKernelPort.h"
 
 /* Not yet available in snapshot mode */
 #define vTraceConsoleChannelPrintF(fmt, ...) (void)(fmt)
@@ -89,9 +89,9 @@ typedef uint8_t traceHandle;
 typedef const char* traceString;
 typedef const void* traceHandle;
 
-#include "../../TraceRecorder/include/trcHardwarePort.h"
-#include "../../TraceRecorder/streamports/Jlink_RTT/include/trcStreamingPort.h"
-#include "../../TraceRecorder/include/trcKernelPort.h"
+#include "trcHardwarePort.h"
+#include "trcStreamingPort.h"
+#include "trcKernelPort.h"
 
 #endif /* (TRC_CFG_RECORDER_MODE == TRC_RECORDER_MODE_STREAMING) */
 

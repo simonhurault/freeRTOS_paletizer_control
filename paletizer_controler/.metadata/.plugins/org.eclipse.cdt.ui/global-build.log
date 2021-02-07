@@ -1,182 +1,12 @@
-20:28:23 **** Incremental Build of configuration Debug for project factory_io_demo-master ****
+22:11:45 **** Incremental Build of configuration Debug for project factory_io_demo-master ****
 Info: Internal Builder is used for build
-arm-atollic-eabi-gcc -c ..\app\src\stm32f0xx_it.c -mthumb -mcpu=cortex-m0 -std=gnu11 -DSTM32F072xB -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\portable\GCC\ARM_CM0 -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -O0 -g -fstack-usage -Wall -specs=nano.specs -o app\src\stm32f0xx_it.o 
-In file included from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\include/trcRecorder.h:58:0,
-                 from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/FreeRTOSConfig.h:132,
-                 from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/main.h:19,
-                 from ..\app\src\stm32f0xx_it.c:39:
-D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/trcConfig.h:217:0: warning: "TRC_CFG_INCLUDE_OSTICK_EVENTS" redefined
- #define TRC_CFG_INCLUDE_OSTICK_EVENTS 1
- 
-D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/trcConfig.h:130:0: note: this is the location of the previous definition
- #define TRC_CFG_INCLUDE_OSTICK_EVENTS 0    // Disable the recording of OS tick events
- 
-arm-atollic-eabi-gcc -c ..\TraceRecorder\streamports\Jlink_RTT\trcStreamingPort.c -mthumb -mcpu=cortex-m0 -std=gnu11 -DSTM32F072xB -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\portable\GCC\ARM_CM0 -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -O0 -g -fstack-usage -Wall -specs=nano.specs -o TraceRecorder\streamports\Jlink_RTT\trcStreamingPort.o 
-In file included from ..\TraceRecorder\streamports\Jlink_RTT\../../../TraceRecorder/include/trcRecorder.h:58:0,
-                 from ..\TraceRecorder\streamports\Jlink_RTT\trcStreamingPort.c:51:
-D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/trcConfig.h:217:0: warning: "TRC_CFG_INCLUDE_OSTICK_EVENTS" redefined
- #define TRC_CFG_INCLUDE_OSTICK_EVENTS 1
- 
-D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/trcConfig.h:130:0: note: this is the location of the previous definition
- #define TRC_CFG_INCLUDE_OSTICK_EVENTS 0    // Disable the recording of OS tick events
- 
-arm-atollic-eabi-gcc -c ..\FreeRTOS\queue.c -mthumb -mcpu=cortex-m0 -std=gnu11 -DSTM32F072xB -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\portable\GCC\ARM_CM0 -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -O0 -g -fstack-usage -Wall -specs=nano.specs -o FreeRTOS\queue.o 
-In file included from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\include/trcRecorder.h:58:0,
-                 from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/FreeRTOSConfig.h:132,
-                 from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\include/FreeRTOS.h:56,
-                 from ..\FreeRTOS\queue.c:36:
-D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/trcConfig.h:217:0: warning: "TRC_CFG_INCLUDE_OSTICK_EVENTS" redefined
- #define TRC_CFG_INCLUDE_OSTICK_EVENTS 1
- 
-D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/trcConfig.h:130:0: note: this is the location of the previous definition
- #define TRC_CFG_INCLUDE_OSTICK_EVENTS 0    // Disable the recording of OS tick events
- 
-arm-atollic-eabi-gcc -c ..\TraceRecorder\trcKernelPort.c -mthumb -mcpu=cortex-m0 -std=gnu11 -DSTM32F072xB -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\portable\GCC\ARM_CM0 -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -O0 -g -fstack-usage -Wall -specs=nano.specs -o TraceRecorder\trcKernelPort.o 
-In file included from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\include/trcRecorder.h:58:0,
-                 from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/FreeRTOSConfig.h:132,
-                 from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\include/FreeRTOS.h:56,
-                 from ..\TraceRecorder\trcKernelPort.c:45:
-D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/trcConfig.h:217:0: warning: "TRC_CFG_INCLUDE_OSTICK_EVENTS" redefined
- #define TRC_CFG_INCLUDE_OSTICK_EVENTS 1
- 
-D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/trcConfig.h:130:0: note: this is the location of the previous definition
- #define TRC_CFG_INCLUDE_OSTICK_EVENTS 0    // Disable the recording of OS tick events
- 
-arm-atollic-eabi-gcc -c ..\FreeRTOS\tasks.c -mthumb -mcpu=cortex-m0 -std=gnu11 -DSTM32F072xB -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\portable\GCC\ARM_CM0 -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -O0 -g -fstack-usage -Wall -specs=nano.specs -o FreeRTOS\tasks.o 
-In file included from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\include/trcRecorder.h:58:0,
-                 from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/FreeRTOSConfig.h:132,
-                 from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\include/FreeRTOS.h:56,
-                 from ..\FreeRTOS\tasks.c:38:
-D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/trcConfig.h:217:0: warning: "TRC_CFG_INCLUDE_OSTICK_EVENTS" redefined
- #define TRC_CFG_INCLUDE_OSTICK_EVENTS 1
- 
-D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/trcConfig.h:130:0: note: this is the location of the previous definition
- #define TRC_CFG_INCLUDE_OSTICK_EVENTS 0    // Disable the recording of OS tick events
- 
-arm-atollic-eabi-gcc -c ..\FreeRTOS\stream_buffer.c -mthumb -mcpu=cortex-m0 -std=gnu11 -DSTM32F072xB -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\portable\GCC\ARM_CM0 -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -O0 -g -fstack-usage -Wall -specs=nano.specs -o FreeRTOS\stream_buffer.o 
-In file included from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\include/trcRecorder.h:58:0,
-                 from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/FreeRTOSConfig.h:132,
-                 from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\include/FreeRTOS.h:56,
-                 from ..\FreeRTOS\stream_buffer.c:38:
-D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/trcConfig.h:217:0: warning: "TRC_CFG_INCLUDE_OSTICK_EVENTS" redefined
- #define TRC_CFG_INCLUDE_OSTICK_EVENTS 1
- 
-D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/trcConfig.h:130:0: note: this is the location of the previous definition
- #define TRC_CFG_INCLUDE_OSTICK_EVENTS 0    // Disable the recording of OS tick events
- 
-arm-atollic-eabi-gcc -c ..\bsp\src\bsp.c -mthumb -mcpu=cortex-m0 -std=gnu11 -DSTM32F072xB -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\portable\GCC\ARM_CM0 -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -O0 -g -fstack-usage -Wall -specs=nano.specs -o bsp\src\bsp.o 
-In file included from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\include/trcRecorder.h:58:0,
-                 from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/FreeRTOSConfig.h:132,
-                 from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/main.h:19,
-                 from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc/bsp.h:12,
-                 from ..\bsp\src\bsp.c:8:
-D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/trcConfig.h:217:0: warning: "TRC_CFG_INCLUDE_OSTICK_EVENTS" redefined
- #define TRC_CFG_INCLUDE_OSTICK_EVENTS 1
- 
-D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/trcConfig.h:130:0: note: this is the location of the previous definition
- #define TRC_CFG_INCLUDE_OSTICK_EVENTS 0    // Disable the recording of OS tick events
- 
-arm-atollic-eabi-gcc -c ..\TraceRecorder\trcSnapshotRecorder.c -mthumb -mcpu=cortex-m0 -std=gnu11 -DSTM32F072xB -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\portable\GCC\ARM_CM0 -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -O0 -g -fstack-usage -Wall -specs=nano.specs -o TraceRecorder\trcSnapshotRecorder.o 
-In file included from ..\TraceRecorder\../TraceRecorder/include/trcRecorder.h:58:0,
-                 from ..\TraceRecorder\trcSnapshotRecorder.c:45:
-D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/trcConfig.h:217:0: warning: "TRC_CFG_INCLUDE_OSTICK_EVENTS" redefined
- #define TRC_CFG_INCLUDE_OSTICK_EVENTS 1
- 
-D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/trcConfig.h:130:0: note: this is the location of the previous definition
- #define TRC_CFG_INCLUDE_OSTICK_EVENTS 0    // Disable the recording of OS tick events
- 
-arm-atollic-eabi-gcc -c ..\FreeRTOS\event_groups.c -mthumb -mcpu=cortex-m0 -std=gnu11 -DSTM32F072xB -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\portable\GCC\ARM_CM0 -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -O0 -g -fstack-usage -Wall -specs=nano.specs -o FreeRTOS\event_groups.o 
-In file included from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\include/trcRecorder.h:58:0,
-                 from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/FreeRTOSConfig.h:132,
-                 from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\include/FreeRTOS.h:56,
-                 from ..\FreeRTOS\event_groups.c:37:
-D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/trcConfig.h:217:0: warning: "TRC_CFG_INCLUDE_OSTICK_EVENTS" redefined
- #define TRC_CFG_INCLUDE_OSTICK_EVENTS 1
- 
-D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/trcConfig.h:130:0: note: this is the location of the previous definition
- #define TRC_CFG_INCLUDE_OSTICK_EVENTS 0    // Disable the recording of OS tick events
- 
-arm-atollic-eabi-gcc -c ..\FreeRTOS\portable\GCC\ARM_CM0\port.c -mthumb -mcpu=cortex-m0 -std=gnu11 -DSTM32F072xB -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\portable\GCC\ARM_CM0 -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -O0 -g -fstack-usage -Wall -specs=nano.specs -o FreeRTOS\portable\GCC\ARM_CM0\port.o 
-In file included from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\include/trcRecorder.h:58:0,
-                 from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/FreeRTOSConfig.h:132,
-                 from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\include/FreeRTOS.h:56,
-                 from ..\FreeRTOS\portable\GCC\ARM_CM0\port.c:33:
-D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/trcConfig.h:217:0: warning: "TRC_CFG_INCLUDE_OSTICK_EVENTS" redefined
- #define TRC_CFG_INCLUDE_OSTICK_EVENTS 1
- 
-D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/trcConfig.h:130:0: note: this is the location of the previous definition
- #define TRC_CFG_INCLUDE_OSTICK_EVENTS 0    // Disable the recording of OS tick events
- 
-arm-atollic-eabi-gcc -c ..\FreeRTOS\croutine.c -mthumb -mcpu=cortex-m0 -std=gnu11 -DSTM32F072xB -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\portable\GCC\ARM_CM0 -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -O0 -g -fstack-usage -Wall -specs=nano.specs -o FreeRTOS\croutine.o 
-In file included from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\include/trcRecorder.h:58:0,
-                 from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/FreeRTOSConfig.h:132,
-                 from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\include/FreeRTOS.h:56,
-                 from ..\FreeRTOS\croutine.c:28:
-D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/trcConfig.h:217:0: warning: "TRC_CFG_INCLUDE_OSTICK_EVENTS" redefined
- #define TRC_CFG_INCLUDE_OSTICK_EVENTS 1
- 
-D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/trcConfig.h:130:0: note: this is the location of the previous definition
- #define TRC_CFG_INCLUDE_OSTICK_EVENTS 0    // Disable the recording of OS tick events
- 
-arm-atollic-eabi-gcc -c ..\TraceRecorder\trcStreamingRecorder.c -mthumb -mcpu=cortex-m0 -std=gnu11 -DSTM32F072xB -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\portable\GCC\ARM_CM0 -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -O0 -g -fstack-usage -Wall -specs=nano.specs -o TraceRecorder\trcStreamingRecorder.o 
-In file included from ..\TraceRecorder\../TraceRecorder/include/trcRecorder.h:58:0,
-                 from ..\TraceRecorder\trcStreamingRecorder.c:45:
-D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/trcConfig.h:217:0: warning: "TRC_CFG_INCLUDE_OSTICK_EVENTS" redefined
- #define TRC_CFG_INCLUDE_OSTICK_EVENTS 1
- 
-D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/trcConfig.h:130:0: note: this is the location of the previous definition
- #define TRC_CFG_INCLUDE_OSTICK_EVENTS 0    // Disable the recording of OS tick events
- 
-arm-atollic-eabi-gcc -c ..\FreeRTOS\list.c -mthumb -mcpu=cortex-m0 -std=gnu11 -DSTM32F072xB -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\portable\GCC\ARM_CM0 -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -O0 -g -fstack-usage -Wall -specs=nano.specs -o FreeRTOS\list.o 
-In file included from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\include/trcRecorder.h:58:0,
-                 from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/FreeRTOSConfig.h:132,
-                 from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\include/FreeRTOS.h:56,
-                 from ..\FreeRTOS\list.c:30:
-D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/trcConfig.h:217:0: warning: "TRC_CFG_INCLUDE_OSTICK_EVENTS" redefined
- #define TRC_CFG_INCLUDE_OSTICK_EVENTS 1
- 
-D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/trcConfig.h:130:0: note: this is the location of the previous definition
- #define TRC_CFG_INCLUDE_OSTICK_EVENTS 0    // Disable the recording of OS tick events
- 
-arm-atollic-eabi-gcc -c ..\FreeRTOS\portable\MemMang\heap_1.c -mthumb -mcpu=cortex-m0 -std=gnu11 -DSTM32F072xB -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\portable\GCC\ARM_CM0 -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -O0 -g -fstack-usage -Wall -specs=nano.specs -o FreeRTOS\portable\MemMang\heap_1.o 
-In file included from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\include/trcRecorder.h:58:0,
-                 from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/FreeRTOSConfig.h:132,
-                 from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\include/FreeRTOS.h:56,
-                 from ..\FreeRTOS\portable\MemMang\heap_1.c:43:
-D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/trcConfig.h:217:0: warning: "TRC_CFG_INCLUDE_OSTICK_EVENTS" redefined
- #define TRC_CFG_INCLUDE_OSTICK_EVENTS 1
- 
-D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/trcConfig.h:130:0: note: this is the location of the previous definition
- #define TRC_CFG_INCLUDE_OSTICK_EVENTS 0    // Disable the recording of OS tick events
- 
-arm-atollic-eabi-gcc -c ..\FreeRTOS\timers.c -mthumb -mcpu=cortex-m0 -std=gnu11 -DSTM32F072xB -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\portable\GCC\ARM_CM0 -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -O0 -g -fstack-usage -Wall -specs=nano.specs -o FreeRTOS\timers.o 
-In file included from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\include/trcRecorder.h:58:0,
-                 from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/FreeRTOSConfig.h:132,
-                 from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\include/FreeRTOS.h:56,
-                 from ..\FreeRTOS\timers.c:36:
-D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/trcConfig.h:217:0: warning: "TRC_CFG_INCLUDE_OSTICK_EVENTS" redefined
- #define TRC_CFG_INCLUDE_OSTICK_EVENTS 1
- 
-D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/trcConfig.h:130:0: note: this is the location of the previous definition
- #define TRC_CFG_INCLUDE_OSTICK_EVENTS 0    // Disable the recording of OS tick events
- 
-arm-atollic-eabi-gcc -c ..\app\src\main.c -mthumb -mcpu=cortex-m0 -std=gnu11 -DSTM32F072xB -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\portable\GCC\ARM_CM0 -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -O0 -g -fstack-usage -Wall -specs=nano.specs -o app\src\main.o 
-In file included from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\include/trcRecorder.h:58:0,
-                 from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/FreeRTOSConfig.h:132,
-                 from D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/main.h:19,
-                 from ..\app\src\main.c:4:
-D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/trcConfig.h:217:0: warning: "TRC_CFG_INCLUDE_OSTICK_EVENTS" redefined
- #define TRC_CFG_INCLUDE_OSTICK_EVENTS 1
- 
-D:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc/trcConfig.h:130:0: note: this is the location of the previous definition
- #define TRC_CFG_INCLUDE_OSTICK_EVENTS 0    // Disable the recording of OS tick events
- 
+arm-atollic-eabi-gcc -c ..\app\src\main.c -mthumb -mcpu=cortex-m0 -std=gnu11 -DSTM32F072xB -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\streamports\Jlink_RTT\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\config -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\portable\GCC\ARM_CM0 -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -O0 -g -fstack-usage -Wall -specs=nano.specs -o app\src\main.o 
 ..\app\src\main.c: In function 'vTaskPub':
-..\app\src\main.c:515:10: warning: unused variable 'rx_byte' [-Wunused-variable]
+..\app\src\main.c:510:10: warning: unused variable 'rx_byte' [-Wunused-variable]
   uint8_t rx_byte;
           ^~~~~~~
 At top level:
-..\app\src\main.c:726:13: warning: 'SystemClock_Config' defined but not used [-Wunused-function]
+..\app\src\main.c:721:13: warning: 'SystemClock_Config' defined but not used [-Wunused-function]
  static void SystemClock_Config()
              ^~~~~~~~~~~~~~~~~~
 arm-atollic-eabi-gcc -o factory_io_demo-master.elf FreeRTOS\croutine.o FreeRTOS\event_groups.o FreeRTOS\list.o FreeRTOS\portable\GCC\ARM_CM0\port.o FreeRTOS\portable\MemMang\heap_1.o FreeRTOS\queue.o FreeRTOS\stream_buffer.o FreeRTOS\tasks.o FreeRTOS\timers.o TraceRecorder\streamports\Jlink_RTT\SEGGER_RTT.o TraceRecorder\streamports\Jlink_RTT\trcStreamingPort.o TraceRecorder\trcKernelPort.o TraceRecorder\trcSnapshotRecorder.o TraceRecorder\trcStreamingRecorder.o app\src\main.o app\src\printf-stdarg.o app\src\stm32f0xx_it.o bsp\src\bsp.o bsp\src\delay.o bsp\src\factory_io.o cmsis\device\src\startup_stm32f072xb.o cmsis\device\src\system_stm32f0xx.o -mthumb -mcpu=cortex-m0 -TD:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\Debug_STM32F072RB_FLASH.ld -specs=nosys.specs -static -Wl,-cref,-u,Reset_Handler -Wl,-Map=factory_io_demo-master.map -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
@@ -184,7 +14,30 @@ D:\TrueSTUDIO for STM32 9.3.0\ide\jre\bin\java -jar D:\TrueSTUDIO for STM32 9.3.
 Generate build reports...
 Print size information
    text	   data	    bss	    dec	    hex	filename
-  59248	     52	  14728	  74028	  1212c	factory_io_demo-master.elf
+  46476	     72	  14808	  61356	   efac	factory_io_demo-master.elf
+Print size information done
+Generate listing file
+Output sent to: factory_io_demo-master.list
+Generate listing file done
+Generate build reports done
+Info: Nothing to build for factory_io_demo-master
+22:56:30 **** Incremental Build of configuration Debug for project factory_io_demo-master ****
+Info: Internal Builder is used for build
+arm-atollic-eabi-gcc -c ..\app\src\main.c -mthumb -mcpu=cortex-m0 -std=gnu11 -DSTM32F072xB -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\streamports\Jlink_RTT\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\config -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\portable\GCC\ARM_CM0 -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -O0 -g -fstack-usage -Wall -specs=nano.specs -o app\src\main.o 
+..\app\src\main.c: In function 'vTaskPub':
+..\app\src\main.c:510:10: warning: unused variable 'rx_byte' [-Wunused-variable]
+  uint8_t rx_byte;
+          ^~~~~~~
+At top level:
+..\app\src\main.c:721:13: warning: 'SystemClock_Config' defined but not used [-Wunused-function]
+ static void SystemClock_Config()
+             ^~~~~~~~~~~~~~~~~~
+arm-atollic-eabi-gcc -o factory_io_demo-master.elf FreeRTOS\croutine.o FreeRTOS\event_groups.o FreeRTOS\list.o FreeRTOS\portable\GCC\ARM_CM0\port.o FreeRTOS\portable\MemMang\heap_1.o FreeRTOS\queue.o FreeRTOS\stream_buffer.o FreeRTOS\tasks.o FreeRTOS\timers.o TraceRecorder\streamports\Jlink_RTT\SEGGER_RTT.o TraceRecorder\streamports\Jlink_RTT\trcStreamingPort.o TraceRecorder\trcKernelPort.o TraceRecorder\trcSnapshotRecorder.o TraceRecorder\trcStreamingRecorder.o app\src\main.o app\src\printf-stdarg.o app\src\stm32f0xx_it.o bsp\src\bsp.o bsp\src\delay.o bsp\src\factory_io.o cmsis\device\src\startup_stm32f072xb.o cmsis\device\src\system_stm32f0xx.o -mthumb -mcpu=cortex-m0 -TD:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\Debug_STM32F072RB_FLASH.ld -specs=nosys.specs -static -Wl,-cref,-u,Reset_Handler -Wl,-Map=factory_io_demo-master.map -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
+D:\TrueSTUDIO for STM32 9.3.0\ide\jre\bin\java -jar D:\TrueSTUDIO for STM32 9.3.0\Tools\arm-atollic-reports.jar sizeinfo list factory_io_demo-master.elf 
+Generate build reports...
+Print size information
+   text	   data	    bss	    dec	    hex	filename
+  46400	     72	  14808	  61280	   ef60	factory_io_demo-master.elf
 Print size information done
 Generate listing file
 Output sent to: factory_io_demo-master.list
@@ -192,3 +45,27 @@ Generate listing file done
 Generate build reports done
 Info: Nothing to build for factory_io_demo-master
 Info: Nothing to build for factory_io_demo-master
+Info: Nothing to build for factory_io_demo-master
+Info: Nothing to build for factory_io_demo-master
+23:21:45 **** Incremental Build of configuration Debug for project factory_io_demo-master ****
+Info: Internal Builder is used for build
+arm-atollic-eabi-gcc -c ..\app\src\main.c -mthumb -mcpu=cortex-m0 -std=gnu11 -DSTM32F072xB -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\streamports\Jlink_RTT\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\config -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\app\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\portable\GCC\ARM_CM0 -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\TraceRecorder\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\FreeRTOS\include -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\bsp\inc -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\core -ID:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\cmsis\device\inc -O0 -g -fstack-usage -Wall -specs=nano.specs -o app\src\main.o 
+..\app\src\main.c: In function 'vTaskPub':
+..\app\src\main.c:510:10: warning: unused variable 'rx_byte' [-Wunused-variable]
+  uint8_t rx_byte;
+          ^~~~~~~
+At top level:
+..\app\src\main.c:721:13: warning: 'SystemClock_Config' defined but not used [-Wunused-function]
+ static void SystemClock_Config()
+             ^~~~~~~~~~~~~~~~~~
+arm-atollic-eabi-gcc -o factory_io_demo-master.elf FreeRTOS\croutine.o FreeRTOS\event_groups.o FreeRTOS\list.o FreeRTOS\portable\GCC\ARM_CM0\port.o FreeRTOS\portable\MemMang\heap_1.o FreeRTOS\queue.o FreeRTOS\stream_buffer.o FreeRTOS\tasks.o FreeRTOS\timers.o TraceRecorder\streamports\Jlink_RTT\SEGGER_RTT.o TraceRecorder\streamports\Jlink_RTT\trcStreamingPort.o TraceRecorder\trcKernelPort.o TraceRecorder\trcSnapshotRecorder.o TraceRecorder\trcStreamingRecorder.o app\src\main.o app\src\printf-stdarg.o app\src\stm32f0xx_it.o bsp\src\bsp.o bsp\src\delay.o bsp\src\factory_io.o cmsis\device\src\startup_stm32f072xb.o cmsis\device\src\system_stm32f0xx.o -mthumb -mcpu=cortex-m0 -TD:\cours\mea4\freeRTOS_paletizer_control\paletizer_controler\factory_io_demo-master\Debug_STM32F072RB_FLASH.ld -specs=nosys.specs -static -Wl,-cref,-u,Reset_Handler -Wl,-Map=factory_io_demo-master.map -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
+D:\TrueSTUDIO for STM32 9.3.0\ide\jre\bin\java -jar D:\TrueSTUDIO for STM32 9.3.0\Tools\arm-atollic-reports.jar sizeinfo list factory_io_demo-master.elf 
+Generate build reports...
+Print size information
+   text	   data	    bss	    dec	    hex	filename
+  46404	     72	  14808	  61284	   ef64	factory_io_demo-master.elf
+Print size information done
+Generate listing file
+Output sent to: factory_io_demo-master.list
+Generate listing file done
+Generate build reports done

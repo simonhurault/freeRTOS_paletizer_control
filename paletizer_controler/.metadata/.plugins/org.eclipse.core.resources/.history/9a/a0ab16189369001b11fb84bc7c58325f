@@ -1,0 +1,812 @@
+
+
+#include "stm32f0xx.h"
+#include "main.h"
+#include "bsp.h"
+#include "factory_io.h"
+
+#define SIZE_SUB_TABLE 20
+#define SENSOR_TABLE_SIZE 15
+#define SIZE_COMMAND_MESSAGE 7
+void vTaskWrite (void *pvParameters);
+
+uint8_t sensor[SENSOR_TABLE_SIZE]; // table for the sensors
+
+uint32_t command = 0;
+
+
+/*
+ * Local Static Functions
+ */
+
+
+static void SystemClock_Config	(void);
+
+
+// FreeRTOS tasks
+void vTaskPalletManager (void *pvParameters);
+void vTaskBox (void *pvParameters);
+void vTaskPub 		(void *pvParameters);
+void vTaskStack(void *pvParameters);
+
+
+// Kernel Objects
+xQueueHandle xSuscriberQueue;
+xQueueHandle	xActuatorQueue;
+
+xSemaphoreHandle xSem1; // boxes send
+xSemaphoreHandle xSem2; // pallet sem
+xSemaphoreHandle xSem3; // stack sem
+
+xSemaphoreHandle xSem_DMA_TC;
+
+xSemaphoreHandle xUsartMutex;
+
+
+EventGroupHandle_t synchroEventGroup; // synchro between module
+
+// Define Event Group flags
+#define	ELEVATOR_PLACE	( (EventBits_t)( 0x01 <<0) )   // Elevator at stage 2 or 1
+#define BOXES_PLACED	( (EventBits_t)( 0x01 <<1) )   // Boxes placed for elevator
+#define FENCE_OPEN		( (EventBits_t)( 0x01 <<2) )   // Fence is open
+
+// Define the command_message_t type as an array of xx char
+typedef uint8_t command_message_t[SIZE_COMMAND_MESSAGE];
+
+
+typedef struct
+{
+uint8_t sem_id; // Semaphore ID to use for publication
+uint8_t sensor_id; // Awaited sensor ID
+uint8_t sensor_state; // Awaited sensor State
+} subscribe_message_t;
+
+uint8_t tx_dma_buffer[7];
+
+
+void update_actuators(uint32_t cmd, command_message_t buffer);
+
+
+/*
+ * main.c
+ *
+ *  Created on: 24/02/2018
+ *      Author: Laurent
+ */
+
+// Main program
+int main()
+{
+	// Configure System Clock
+	// SystemClock_Config();
+
+	// Initialize LED pin
+	BSP_LED_Init();
+
+	// Initialize Debug Console
+	BSP_Console_Init();
+
+	// Start Trace Recording
+	vTraceEnable(TRC_START);
+
+	// Create Queue to hold suscribe messages (task_pub)
+	xSuscriberQueue = xQueueCreate(10, sizeof(subscribe_message_t *));
+
+	// Give a nice name to the Queue in the trace recorder
+	vTraceSetQueueName(xSuscriberQueue, "Console Queue");
+
+
+	// Create Queue to hold console messages (task_write)
+	xActuatorQueue = xQueueCreate(10, sizeof(command_message_t *));
+
+	// Give a nice name to the Queue in the trace recorder
+	vTraceSetQueueName(xActuatorQueue, "Console Queue");
+
+
+	// Create Semaphore object
+	xSem1 = xSemaphoreCreateBinary();
+	xSem2 = xSemaphoreCreateBinary();
+	xSem3 = xSemaphoreCreateBinary();
+	xSem_DMA_TC = xSemaphoreCreateBinary();
+
+	// Create Event Group
+	synchroEventGroup = xEventGroupCreate();
+
+
+	// Give a nice name to the Semaphore in the trace recorder
+	vTraceSetSemaphoreName(xSem1, "xSEM1");
+
+	// Give a nice name to the Semaphore in the trace recorder
+	vTraceSetSemaphoreName(xSem_DMA_TC, "xSem_DMA_TC");
+
+
+	// Give a nice name to the Semaphore in the trace recorder
+	vTraceSetSemaphoreName(xSem2, "xSEM2");
+
+
+	// Create Tasks
+	xTaskCreate(vTaskPub, 	"Task_Pub",	150, NULL, 1, NULL);
+	xTaskCreate(vTaskWrite, "Task_Write", 150, NULL, 1, NULL);
+	xTaskCreate(vTaskPalletManager, "Task_Pallet_Manager", 150, NULL, 1, NULL);
+	xTaskCreate(vTaskBox, "vTaskBox", 150, NULL, 1, NULL);
+	xTaskCreate(vTaskStack, "vTaskSimule", 150, NULL, 1, NULL);
+
+
+	// Start the Scheduler
+	vTaskStartScheduler();
+
+	while(1)
+	{
+		// The program should never be here...
+	}
+}
+
+
+
+
+/*
+ * Task that manage all pallet's movements
+ */
+void vTaskBox (void *pvParameters)
+{
+	subscribe_message_t suscribe;
+	subscribe_message_t* pm;
+
+	command_message_t 	message;
+	command_message_t	*pm2;
+
+	// Start end conveyor A[18] = 1
+	// Start pallet provider A[9] = 1
+	command |= (1 << 18) | (1 << 19);
+	update_actuators(command, message);
+	pm2 = &message;
+	xQueueSendToBack(xActuatorQueue, &pm2, 0);
+
+	// close fence
+	command |= (1 << 2);
+	update_actuators(command, message);
+	pm2 = &message;
+	xQueueSendToBack(xActuatorQueue, &pm2, 0);
+
+	// Send 2 boxes A[0] = 1
+	command |= (1 << 0) | (1 << 1) | (1 << 11);
+	update_actuators(command, message);
+	pm2 = &message;
+	xQueueSendToBack(xActuatorQueue, &pm2, 0);
+
+	while(1)
+	{
+
+		command |= (1 << 0);
+		update_actuators(command, message);
+		pm2 = &message;
+		xQueueSendToBack(xActuatorQueue, &pm2, 0);
+
+		// Wait 2 boxes passed sensor 0
+
+		for(int i = 0; i < 2; i++)
+		{
+			suscribe = (subscribe_message_t) {.sem_id = 1, .sensor_id = 0, .sensor_state = 0};
+
+			// Send message to the Suscriber Queue
+			pm = &suscribe;
+			xQueueSendToBack(xSuscriberQueue, &pm, 0);
+
+			// Wait for Semaphore boxes pass
+			xSemaphoreTake(xSem1, portMAX_DELAY);
+
+			suscribe = (subscribe_message_t) {.sem_id = 1, .sensor_id = 0, .sensor_state = 1};
+
+			// Send message to the Suscriber Queue
+			pm = &suscribe;
+			xQueueSendToBack(xSuscriberQueue, &pm, 0);
+
+			// Wait for Semaphore boxes pass
+			xSemaphoreTake(xSem1, portMAX_DELAY);
+
+		}
+
+
+
+		// Stop send boxes A[0] = 0
+		command &= ~(1 << 0); // command &= ~(1 << 1);
+		update_actuators(command, message);
+		pm2 = &message;
+		xQueueSendToBack(xActuatorQueue, &pm2, 0);
+
+
+		// Wait sensor 2
+		suscribe = (subscribe_message_t) {.sem_id = 1, .sensor_id = 2, .sensor_state = 0};
+		pm = &suscribe;
+		xQueueSendToBack(xSuscriberQueue, &pm, 0);
+		xSemaphoreTake(xSem1, portMAX_DELAY);
+
+
+		// Wait sensor 2 off
+		suscribe = (subscribe_message_t) {.sem_id = 1, .sensor_id = 2, .sensor_state = 1};
+		pm = &suscribe;
+		xQueueSendToBack(xSuscriberQueue, &pm, 0);
+		xSemaphoreTake(xSem1, portMAX_DELAY);
+
+
+		// Wait sensor 2
+		suscribe = (subscribe_message_t) {.sem_id = 1, .sensor_id = 2, .sensor_state = 0};
+		pm = &suscribe;
+		xQueueSendToBack(xSuscriberQueue, &pm, 0);
+		xSemaphoreTake(xSem1, portMAX_DELAY);
+
+
+
+		xEventGroupSetBits(synchroEventGroup, FENCE_OPEN);
+		vTaskDelay((200/portTICK_RATE_MS));
+	}
+}
+
+
+
+/*
+ * Task that manage all pallet's movements
+ */
+void vTaskPalletManager (void *pvParameters)
+{
+	subscribe_message_t suscribe;
+	subscribe_message_t* pm;
+
+	command_message_t 	message;
+	command_message_t	*pm2;
+
+	while(1)
+	{
+
+		// Start pallet provider
+		command |= (1 << 9) | (1 << 17) | (1 << 16);
+		update_actuators(command, message);
+		pm2 = &message;
+		xQueueSendToBack(xActuatorQueue, &pm2, 0);
+
+		vTaskDelay(800/portTICK_RATE_MS);
+
+		command &= ~(1 << 9);
+		update_actuators(command, message);
+		pm2 = &message;
+		xQueueSendToBack(xActuatorQueue, &pm2, 0);
+
+		// Wait sensor 12
+		suscribe = (subscribe_message_t) {.sem_id = 2, .sensor_id = 12, .sensor_state = 1};
+
+		// Send message to the Suscriber Queue
+		pm = &suscribe;
+		xQueueSendToBack(xSuscriberQueue, &pm, 0);
+
+		// Wait for Semaphore boxes placed for elevator endlessly
+		xSemaphoreTake(xSem2, portMAX_DELAY);
+
+		command &= ~(1 << 17);
+		command |= (1 << 10);
+		update_actuators(command, message);
+		pm2 = &message;
+		xQueueSendToBack(xActuatorQueue, &pm2, 0);
+
+		// Wait sensor 9
+		suscribe = (subscribe_message_t) {.sem_id = 2, .sensor_id = 9, .sensor_state = 1};
+
+		// Send message to the Suscriber Queue
+		pm = &suscribe;
+		xQueueSendToBack(xSuscriberQueue, &pm, 0);
+
+		// Wait for Semaphore boxes placed for elevator endlessly
+		xSemaphoreTake(xSem2, portMAX_DELAY);
+
+
+		command &= ~(1 << 10);
+		command &= ~(1 << 16);
+		update_actuators(command, message);
+		pm2 = &message;
+		xQueueSendToBack(xActuatorQueue, &pm2, 0);
+
+		vTaskDelay(200/portTICK_RATE_MS);
+
+		command |= (1 << 8) | (1 << 6);
+		update_actuators(command, message);
+		pm2 = &message;
+		xQueueSendToBack(xActuatorQueue, &pm2, 0);
+
+
+		// Wait sensor 7
+		suscribe = (subscribe_message_t) {.sem_id = 2, .sensor_id = 7, .sensor_state = 1};
+		pm = &suscribe;
+		xQueueSendToBack(xSuscriberQueue, &pm, 0);
+		xSemaphoreTake(xSem2, portMAX_DELAY);
+
+		command &= ~(1 << 8);
+		command &= ~(1 << 6);
+		update_actuators(command, message);
+		pm2 = &message;
+		xQueueSendToBack(xActuatorQueue, &pm2, 0);
+
+
+		xEventGroupSetBits(synchroEventGroup, ELEVATOR_PLACE);
+
+		// synchro boxes
+		xEventGroupWaitBits(synchroEventGroup, BOXES_PLACED, pdTRUE, pdTRUE, portMAX_DELAY);
+
+		command |= (1 << 7);
+		update_actuators(command, message);
+		pm2 = &message;
+		xQueueSendToBack(xActuatorQueue, &pm2, 0);
+
+		// Wait sensor 7 off
+		suscribe = (subscribe_message_t) {.sem_id = 2, .sensor_id = 7, .sensor_state = 0};
+		pm = &suscribe;
+		xQueueSendToBack(xSuscriberQueue, &pm, 0);
+		xSemaphoreTake(xSem2, portMAX_DELAY);
+
+		command &= ~(1 << 7);
+		update_actuators(command, message);
+		pm2 = &message;
+		xQueueSendToBack(xActuatorQueue, &pm2, 0);
+
+		xEventGroupSetBits(synchroEventGroup, ELEVATOR_PLACE);
+
+		// synchro boxes
+		xEventGroupWaitBits(synchroEventGroup, BOXES_PLACED, pdTRUE, pdTRUE, portMAX_DELAY);
+
+		command |= (1 << 7) | (1 << 8);
+		update_actuators(command, message);
+		pm2 = &message;
+		xQueueSendToBack(xActuatorQueue, &pm2, 0);
+
+		// Wait sensor 6
+		suscribe = (subscribe_message_t) {.sem_id = 2, .sensor_id = 6, .sensor_state = 1};
+		pm = &suscribe;
+		xQueueSendToBack(xSuscriberQueue, &pm, 0);
+		xSemaphoreTake(xSem2, portMAX_DELAY);
+
+		command &= ~(1 << 7);
+		command &= ~(1 << 8);
+		command |= (1 << 10);
+		update_actuators(command, message);
+		pm2 = &message;
+		xQueueSendToBack(xActuatorQueue, &pm2, 0);
+
+		// Wait sensor 9 off
+		suscribe = (subscribe_message_t) {.sem_id = 2, .sensor_id = 9, .sensor_state = 0};
+		pm = &suscribe;
+		xQueueSendToBack(xSuscriberQueue, &pm, 0);
+		xSemaphoreTake(xSem2, portMAX_DELAY);
+	}
+}
+
+void vTaskStack(void *pvParameters)
+{
+	subscribe_message_t suscribe;
+	subscribe_message_t* pm;
+
+	command_message_t 	message;
+	command_message_t	*pm2;
+	while(1)
+	{
+		for(int i = 0; i < 3; i++)
+		{
+			// wait fence open
+			xEventGroupWaitBits(synchroEventGroup, FENCE_OPEN, pdTRUE, pdTRUE, portMAX_DELAY);
+
+			// open fence
+			command &= ~(1 << 2);
+			command |= (1 << 14);
+			update_actuators(command, message);
+			pm2 = &message;
+			xQueueSendToBack(xActuatorQueue, &pm2, 0);
+
+			vTaskDelay((1400/portTICK_RATE_MS));
+
+			// close fence
+			command |= (1 << 2);
+			update_actuators(command, message);
+			pm2 = &message;
+			xQueueSendToBack(xActuatorQueue, &pm2, 0);
+
+			vTaskDelay((1300/portTICK_RATE_MS));
+
+			// push boxes
+			command &= ~(1 << 14);
+			command |= (1 << 4);
+			update_actuators(command, message);
+			pm2 = &message;
+			xQueueSendToBack(xActuatorQueue, &pm2, 0);
+
+			// Wait box pushed
+			vTaskDelay(300/portTICK_RATE_MS);
+
+			// Wait sensor 4
+			suscribe = (subscribe_message_t) {.sem_id = 3, .sensor_id = 4, .sensor_state = 1};
+			pm = &suscribe;
+			xQueueSendToBack(xSuscriberQueue, &pm, 0);
+			xSemaphoreTake(xSem3, portMAX_DELAY);
+
+			// disable push box
+			command &= ~(1 << 4);
+			update_actuators(command, message);
+			pm2 = &message;
+			xQueueSendToBack(xActuatorQueue, &pm2, 0);
+		}
+
+		// clamp
+		command |= (1 << 5);
+		update_actuators(command, message);
+		pm2 = &message;
+		xQueueSendToBack(xActuatorQueue, &pm2, 0);
+
+		// Wait sensor 5
+		suscribe = (subscribe_message_t) {.sem_id = 3, .sensor_id = 5, .sensor_state = 1};
+		pm = &suscribe;
+		xQueueSendToBack(xSuscriberQueue, &pm, 0);
+		xSemaphoreTake(xSem3, portMAX_DELAY);
+
+		vTaskDelay(300/portTICK_RATE_MS);
+
+		// open door
+		command |= (1 << 3);
+		update_actuators(command, message);
+		pm2 = &message;
+		xQueueSendToBack(xActuatorQueue, &pm2, 0);
+
+
+		// Wait sensor 3
+		suscribe = (subscribe_message_t) {.sem_id = 3, .sensor_id = 3, .sensor_state = 1};
+		pm = &suscribe;
+		xQueueSendToBack(xSuscriberQueue, &pm, 0);
+		xSemaphoreTake(xSem3, portMAX_DELAY);
+
+		// Wait sensor 10 off
+		suscribe = (subscribe_message_t) {.sem_id = 3, .sensor_id = 10, .sensor_state = 1};
+		pm = &suscribe;
+		xQueueSendToBack(xSuscriberQueue, &pm, 0);
+		xSemaphoreTake(xSem3, portMAX_DELAY);
+
+
+		// unclamp
+		command &= ~(1 << 5);
+		update_actuators(command, message);
+		pm2 = &message;
+		xQueueSendToBack(xActuatorQueue, &pm2, 0);
+
+		vTaskDelay(300/portTICK_RATE_MS);
+
+		xEventGroupSetBits(synchroEventGroup, BOXES_PLACED); // synchro door open
+
+		vTaskDelay(500/portTICK_RATE_MS);
+
+		// close door
+		command &= ~(1 << 3);
+		update_actuators(command, message);
+		pm2 = &message;
+		xQueueSendToBack(xActuatorQueue, &pm2, 0);
+
+	}
+}
+
+
+/*
+ *	Task_Pub
+ */
+void vTaskPub (void *pvParameters)
+{
+	portTickType	xLastWakeTime;
+	portBASE_TYPE	xStatus;
+
+	// Initialize timing
+	xLastWakeTime = xTaskGetTickCount();
+
+	subscribe_message_t *pm;
+	subscribe_message_t subTable[SIZE_SUB_TABLE];
+
+
+	for(uint8_t i = 0; i < SIZE_SUB_TABLE; i++)
+	{
+		subTable[i] = (subscribe_message_t) {.sem_id = 0, .sensor_id = 0, .sensor_state = 0};
+	}
+
+	uint8_t rx_byte;
+
+	// Now enter the task loop
+	while(1)
+	{
+		// Wait for something in the message Queue
+		xStatus = xQueueReceive(xSuscriberQueue, &pm, 0);
+
+		if(xStatus == pdPASS)
+			{
+				// my_printf("\r\nSuscribing : SemId=%d SensID=%d State=%d\r\n", pm->sem_id, pm->sensor_id, pm->sensor_state);
+
+				// Check if subscription already exist
+				uint8_t subAlreadyExist;
+				subAlreadyExist = 0;
+				for(uint8_t i = 0; i < SIZE_SUB_TABLE; i++)
+				{
+					if((subTable[i].sem_id == pm->sem_id) && (subTable[i].sensor_id == pm->sensor_id) && (subTable[i].sensor_state == pm->sensor_state))
+						{
+							subAlreadyExist = 1;
+							//my_printf("\r\nSubscription already exist\r\n");
+						}
+				}
+
+				if(subAlreadyExist == 0)
+				{
+					uint8_t ctr;
+					uint8_t placed;
+					ctr = 0;
+					placed = 0;
+
+					while(ctr < SIZE_SUB_TABLE && placed != 1)
+					{
+						if(subTable[ctr].sem_id == 0)
+						{
+							//my_printf("\r\nAdding subscription in slot[%d]\r\n", ctr);
+							subTable[ctr] = *pm;
+							placed = 1;
+						}
+						ctr++;
+					}
+				}
+
+/*
+				for(uint8_t i = 0; i < SIZE_SUB_TABLE; i++)
+				{
+					my_printf("\r\n[%d] %d %d %d\r\n", i, subTable[i].sem_id, subTable[i].sensor_id, subTable[i].sensor_state);
+				}
+				*/
+			}
+
+		//else my_printf(".");
+
+/*
+		for(uint8_t i = 0; i < SENSOR_TABLE_SIZE; i++)
+		{
+			sensor[i] = FACTORY_IO_Sensors_Get(i);
+		}
+*/
+		//Updating sensors
+		sensor[0] = (rx_dma_buffer[1] >> 0)  &  1;
+		sensor[1] = (rx_dma_buffer[1] >> 1)  &  1;
+		sensor[2] = (rx_dma_buffer[1] >> 2)  &  1;
+		sensor[3] = (rx_dma_buffer[1] >> 3)  &  1;
+		sensor[4] = (rx_dma_buffer[1] >> 4)  &  1;
+		sensor[5] = (rx_dma_buffer[1] >> 5)  &  1;
+		sensor[6] = (rx_dma_buffer[1] >> 6)  &  1;
+
+		sensor[7] = (rx_dma_buffer[2] >> 0)  &  1;
+		sensor[8] = (rx_dma_buffer[2] >> 1)  &  1;
+		sensor[9] = (rx_dma_buffer[2] >> 2)  &  1;
+		sensor[10] = (rx_dma_buffer[2] >> 3)  &  1;
+		sensor[11] = (rx_dma_buffer[2] >> 4)  &  1;
+		sensor[12] = (rx_dma_buffer[2] >> 5)  &  1;
+		sensor[13] = (rx_dma_buffer[2] >> 6)  &  1;
+
+		for(uint8_t i = 0; i < SIZE_SUB_TABLE; i++)
+		{
+			if(subTable[i].sem_id != 0 && sensor[subTable[i].sensor_id] == subTable[i].sensor_state)
+			{
+				//my_printf("\r\n Giving semaphore #%d \r\n", subTable[i].sem_id);
+
+				switch (subTable[i].sem_id)
+				{
+				case 1:
+					xSemaphoreGive(xSem1);
+					break;
+
+				case 2:
+					xSemaphoreGive(xSem2);
+					break;
+
+				case 3:
+					xSemaphoreGive(xSem3);
+					break;
+
+				default:
+					break;
+				}
+				//my_printf("\r\n Delete subscription at slot [%d] \r\n", i);
+				subTable[i] = (subscribe_message_t) {.sem_id = 0, .sensor_id = 0, .sensor_state = 0};
+
+			}
+
+		}
+
+		vTaskDelayUntil (&xLastWakeTime, (400/portTICK_RATE_MS));
+
+	}
+}
+
+
+
+/*
+ *	TaskWrite write
+ */
+void vTaskWrite (void *pvParameters)
+{
+	command_message_t* message;
+
+	/*
+	// Set maximum priority for EXTI line 4 to 15 interrupts
+	NVIC_SetPriority(USART2_IRQn,
+			configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY + 1);
+
+	// Enable EXTI line 4 to 15 (user button on line 13) interrupts
+	NVIC_EnableIRQ(USART2_IRQn);
+	*/
+
+	// Set priority level 1 for DMA1_Channel5 interrupts
+	NVIC_SetPriority(DMA1_Channel4_5_6_7_IRQn, configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY + 1);
+
+	// Enable DMA1_Channel5 interrupts
+	NVIC_EnableIRQ(DMA1_Channel4_5_6_7_IRQn);
+	uint8_t ctr;
+
+	while (1) {
+		// Wait for something in the message Queue
+		xQueueReceive(xActuatorQueue, &message, portMAX_DELAY);
+
+		// Send message to console
+		//my_printf((const char *) message);
+
+		ctr = 0;
+		while((*message)[ctr] != '\n' && ctr < SIZE_COMMAND_MESSAGE)
+		{
+			tx_dma_buffer[ctr] = (*message)[ctr];
+			ctr++;
+		}
+
+		tx_dma_buffer[ctr] = (*message)[ctr];
+		ctr++;
+
+
+//		xSemaphoreTake(xUsartMutex, portMAX_DELAY);
+		// Set DMA1 Memory Buffer size
+		DMA1_Channel4->CNDTR = ctr;
+
+		// Enable DMA1 Channel 5
+		DMA1_Channel4->CCR |= DMA_CCR_EN;
+
+
+		// Enable USART2 DMA Request on TX
+		USART2->CR3 |= USART_CR3_DMAT;
+
+		// Wait DMA1 TC interrupt semaphore forever
+		xSemaphoreTake(xSem_DMA_TC, portMAX_DELAY);
+
+		// Disable DMA1 Channel 5
+		DMA1_Channel4->CCR &= ~DMA_CCR_EN;
+
+		// Disable USART2 DMA Request on TX
+		USART2->CR3 &= ~USART_CR3_DMAT;
+
+//		xSemaphoreGive(xUsartMutex);
+
+
+
+	}
+}
+
+
+void vApplicationIdleHook( void )
+{
+    __WFI();
+}
+
+
+void update_actuators(uint32_t cmd, command_message_t buffer)
+{
+
+    // Prepare frame buffer
+    buffer[0] = TAG_ACTUATORS;                                     // Actuators tag
+
+    buffer[1] = (uint8_t) (cmd & 0x0000007F);            // data byte #1
+    buffer[2] = (uint8_t)((cmd & 0x00003F80) >> 7U);    // data byte #2
+    buffer[3] = (uint8_t)((cmd & 0x001FC000) >>14U);    // data byte #2
+    buffer[4] = (uint8_t)((cmd & 0x0FE00000) >>21U);    // data byte #2
+
+    buffer[5] = 0x00;                                            // CRC (not yet implemented)
+    buffer[6] = '\n'; 							// End byte
+
+}
+
+
+/*
+ * 	Clock configuration for the Nucleo STM32F072RB board
+ * 	HSE input Bypass Mode	-> 8MHz
+ * 	SYSCLK, AHB, APB1 	-> 48MHz
+ */
+
+static void SystemClock_Config()
+{
+	uint32_t	HSE_Status;
+	uint32_t	PLL_Status;
+	uint32_t	SW_Status;
+	uint32_t	timeout = 0;
+
+	timeout = 1000000;
+
+	// Start HSE in Bypass Mode
+	RCC->CR |= RCC_CR_HSEBYP;
+	RCC->CR |= RCC_CR_HSEON;
+
+	// Wait until HSE is ready
+	do
+	{
+		HSE_Status = RCC->CR & RCC_CR_HSERDY_Msk;
+		timeout--;
+	} while ((HSE_Status == 0) && (timeout > 0));
+
+	// Select HSE as PLL input source
+	RCC->CFGR &= ~RCC_CFGR_PLLSRC_Msk;
+	RCC->CFGR |= (0x02 <<RCC_CFGR_PLLSRC_Pos);
+
+	// Set PLL PREDIV to /1
+	RCC->CFGR2 = 0x00000000;
+
+	// Set PLL MUL to x6
+	RCC->CFGR &= ~RCC_CFGR_PLLMUL_Msk;
+	RCC->CFGR |= (0x04 <<RCC_CFGR_PLLMUL_Pos);
+
+	// Enable the main PLL
+	RCC-> CR |= RCC_CR_PLLON;
+
+	// Wait until PLL is ready
+	do
+	{
+		PLL_Status = RCC->CR & RCC_CR_PLLRDY_Msk;
+		timeout--;
+	} while ((PLL_Status == 0) && (timeout > 0));
+
+	// Set AHB prescaler to /1
+	RCC->CFGR &= ~RCC_CFGR_HPRE_Msk;
+	RCC->CFGR |= RCC_CFGR_HPRE_DIV1;
+
+	//Set APB1 prescaler to /1
+	RCC->CFGR &= ~RCC_CFGR_PPRE_Msk;
+	RCC->CFGR |= RCC_CFGR_PPRE_DIV1;
+
+	// Enable FLASH Prefetch Buffer and set Flash Latency (required for high speed)
+	FLASH->ACR = FLASH_ACR_PRFTBE | FLASH_ACR_LATENCY;
+
+	/* --- Until this point, MCU was still clocked by HSI at 8MHz ---*/
+	/* --- Switching to PLL at 48MHz Now!  Fasten your seat belt! ---*/
+
+	// Select the main PLL as system clock source
+	RCC->CFGR &= ~RCC_CFGR_SW;
+	RCC->CFGR |= RCC_CFGR_SW_PLL;
+
+	// Wait until PLL becomes main switch input
+	do
+	{
+		SW_Status = (RCC->CFGR & RCC_CFGR_SWS_Msk);
+		timeout--;
+	} while ((SW_Status != RCC_CFGR_SWS_PLL) && (timeout > 0));
+
+	/* --- Here we go ! ---*/
+
+	/*--- Use PA8 as MCO output at 48/16 = 3MHz ---*/
+
+	// Set MCO source as SYSCLK (48MHz)
+	RCC->CFGR &= ~RCC_CFGR_MCO_Msk;
+	RCC->CFGR |=  RCC_CFGR_MCOSEL_SYSCLK;
+
+	// Set MCO prescaler to /16 -> 3MHz
+	RCC->CFGR &= ~RCC_CFGR_MCOPRE_Msk;
+	RCC->CFGR |=  RCC_CFGR_MCOPRE_DIV16;
+
+	// Enable GPIOA clock
+	RCC->AHBENR |= RCC_AHBENR_GPIOAEN;
+
+	// Configure PA8 as Alternate function
+	GPIOA->MODER &= ~GPIO_MODER_MODER8_Msk;
+	GPIOA->MODER |= (0x02 <<GPIO_MODER_MODER8_Pos);
+
+	// Set to AF0 (MCO output)
+	GPIOA->AFR[1] &= ~(0x0000000F);
+	GPIOA->AFR[1] |=  (0x00000000);
+
+	// Update SystemCoreClock global variable
+	SystemCoreClockUpdate();
+}
